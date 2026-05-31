@@ -35,13 +35,22 @@ if __name__ == "__main__":
     target_dir = sys.argv[1]
     root_name = sys.argv[2]
     
+    # Markmap frontmatter for styling and initial collapse state
+    print('---')
+    print('markmap:')
+    print('  initialExpandLevel: 1')
+    print('  colorFreezeLevel: 2')
+    print('  spacingHorizontal: 60')
+    print('  spacingVertical: 3')
+    print('---')
+    print('')
+    
     print(f"# {root_name}")
     walk(target_dir)
 PYEOF
 
 if [ $? -eq 0 ]; then
-    echo "Successfully generated Markdown: $OUT_FILE"
-    echo "Launching markmap..."
+    echo "Generated: $OUT_FILE"
     markmap "$OUT_FILE"
 else
     echo "Error: Failed to generate Markdown."
