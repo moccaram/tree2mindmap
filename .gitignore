@@ -1,0 +1,13 @@
+# Temporary Markdown and HTML outputs
+*_mindmap.md
+*.html
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
