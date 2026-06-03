@@ -171,7 +171,7 @@ if "tree2mindmap-controls" not in html:
       <button id="t2m-apply-btn" type="button">Apply</button>
       <button id="t2m-clear-btn" type="button">Clear</button>
     </div>
-    <div class="t2m-tip">Tip: click a node to focus it. Use Ctrl/Cmd/Shift+click to add/remove multiple focus nodes.</div>
+    <div class="t2m-tip">Tip: click a node to focus it. Use Ctrl/Cmd+click to add/remove multiple focus nodes.</div>
   `;
   document.body.appendChild(panel);
 
@@ -257,7 +257,7 @@ if "tree2mindmap-controls" not in html:
         const focusTerms = splitTerms(focusInput.value);
         const index = focusTerms.findIndex((term) => term.toLowerCase() === label.toLowerCase());
 
-        if (event.ctrlKey || event.metaKey || event.shiftKey) {
+        if (event.ctrlKey || event.metaKey) {
           if (index >= 0) focusTerms.splice(index, 1);
           else focusTerms.push(label);
         } else {
@@ -290,9 +290,15 @@ if "tree2mindmap-controls" not in html:
   refreshNodeBindings();
   syncStateFromInputs();
 
+  let refreshScheduled = false;
   new MutationObserver(() => {
-    refreshNodeBindings();
-    applyStyles();
+    if (refreshScheduled) return;
+    refreshScheduled = true;
+    requestAnimationFrame(() => {
+      refreshScheduled = false;
+      refreshNodeBindings();
+      applyStyles();
+    });
   }).observe(svg, { childList: true, subtree: true });
 })();
 </script>
