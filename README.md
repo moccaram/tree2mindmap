@@ -6,8 +6,6 @@ A lightweight, zero-dependency directory-to-mindmap pipeline.
 
 ## Features
 - **Interactive SVG:** Pan, zoom, and collapse/expand nodes.
-- **Node Highlighting:** Highlight specific files/directories while viewing the HTML map.
-- **Focus Mode:** Keep one or more selected nodes emphasized and dim all others.
 - **Auto-traversal:** Automatically walks your directory tree (skipping hidden files).
 - **Fast & Lightweight:** Replaces heavy Java-based tools with a simple Bash/Python/Node.js toolchain.
 - **Scalable:** Efficiently handles hundreds of directories and files.
@@ -21,7 +19,7 @@ A lightweight, zero-dependency directory-to-mindmap pipeline.
 - **Python 3:** Typically pre-installed on Linux/macOS.
 
 ## Installation
-1. Clone this repository or copy `tree2mindmap.sh` to your path.
+1. Clone this repository or copy `tree2mindmap.sh` (or `tree2markmap.sh`) to your path.
 2. Ensure it is executable:
    ```bash
    chmod +x tree2mindmap.sh
@@ -40,13 +38,6 @@ To specify a custom output filename:
 ```bash
 ./tree2mindmap.sh /path/to/project my_custom_map.md
 ```
-
-### Interactive controls in generated HTML
-After generation, the HTML includes a `tree2mindmap controls` panel:
-- **Highlight nodes:** Enter one or more comma-separated names (partial match supported).
-- **Focus nodes:** Enter one or more comma-separated names to keep them emphasized.
-- **Dim non-focused nodes:** Toggle whether all other nodes/links are shown with reduced opacity.
-- **Quick select by click:** Click a node to focus it, or use `Ctrl/Cmd + click` to add/remove multiple focused nodes.
 
 ## License
 MIT
