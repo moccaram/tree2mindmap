@@ -62,7 +62,7 @@ if [ $? -eq 0 ]; then
     fi
 
     if [ -f "$OUT_HTML" ]; then
-        python3 - "$OUT_HTML" << 'PYEOF'
+        if ! python3 - "$OUT_HTML" << 'PYEOF'
 import pathlib
 import sys
 
@@ -311,6 +311,10 @@ if "tree2mindmap-controls" not in html:
     html = html.replace("</body>", f"{controls_script}\n</body>")
     html_path.write_text(html, encoding="utf-8")
 PYEOF
+        then
+            echo "Error: Failed to enhance generated HTML controls."
+            exit 1
+        fi
         echo "Enhanced: $OUT_HTML"
     fi
 else
