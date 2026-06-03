@@ -195,7 +195,7 @@ if "tree2mindmap-controls" not in html:
   const getNodeLabel = (node) => {
     const data = node?.__data__;
     const content = data?.data?.content ?? data?.content ?? node?.textContent ?? "";
-    return String(content).replace(/\\s+/g, " ").trim();
+    return String(content).replace(/[ \\t\\r\\n]+/g, " ").trim();
   };
 
   const getNodes = () => Array.from(document.querySelectorAll("svg#mindmap g.markmap-node"));

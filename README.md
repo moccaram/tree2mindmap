@@ -46,7 +46,7 @@ After generation, the HTML includes a `tree2mindmap controls` panel:
 - **Highlight nodes:** Enter one or more comma-separated names (partial match supported).
 - **Focus nodes:** Enter one or more comma-separated names to keep them emphasized.
 - **Dim non-focused nodes:** Toggle whether all other nodes/links are shown with reduced opacity.
-- **Quick select by click:** Click a node to focus it, or use `Ctrl/Cmd/Shift + click` to add/remove multiple focused nodes.
+- **Quick select by click:** Click a node to focus it, or use `Ctrl/Cmd + click` to add/remove multiple focused nodes.
 
 ## License
 MIT
