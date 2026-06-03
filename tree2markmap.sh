@@ -52,7 +52,7 @@ PYEOF
 if [ $? -eq 0 ]; then
     echo "Generated: $OUT_FILE"
     if ! markmap "$OUT_FILE"; then
-        echo "Error: Failed to generate HTML with markmap."
+        echo "Error: Failed to generate HTML with markmap. Ensure 'markmap-cli' is installed and available in PATH."
         exit 1
     fi
 else
