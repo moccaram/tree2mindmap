@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# tree2mindmap.sh - Directory-to-Markmap Pipeline
+# tree2markmap.sh - Directory-to-Markmap Pipeline
 # Automates the generation of interactive mindmaps from local folder structures.
 
 DIR="${1:-.}"
@@ -51,7 +51,10 @@ PYEOF
 
 if [ $? -eq 0 ]; then
     echo "Generated: $OUT_FILE"
-    markmap "$OUT_FILE"
+    if ! markmap "$OUT_FILE"; then
+        echo "Error: Failed to generate HTML with markmap. Ensure 'markmap-cli' is installed and available in PATH."
+        exit 1
+    fi
 else
     echo "Error: Failed to generate Markdown."
     exit 1

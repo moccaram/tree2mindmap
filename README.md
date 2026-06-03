@@ -19,24 +19,24 @@ A lightweight, zero-dependency directory-to-mindmap pipeline.
 - **Python 3:** Typically pre-installed on Linux/macOS.
 
 ## Installation
-1. Clone this repository or copy `tree2mindmap.sh` to your path.
-2. Ensure it is executable:
+1. Clone this repository or copy `tree2markmap.sh` to your path.
+2. Ensure the script is executable:
    ```bash
-   chmod +x tree2mindmap.sh
+   chmod +x tree2markmap.sh
    ```
 
 ## Usage
 Simply run the script and pass the target folder path:
 
 ```bash
-./tree2mindmap.sh /path/to/your/project
+./tree2markmap.sh /path/to/your/project
 ```
 
-By default, it generates `<folder_name>_mindmap.md` in the current directory and opens the interactive HTML map in your default browser.
+By default, it generates `<folder_name>_mindmap.md` in the current directory and then generates an interactive HTML map from that Markdown using `markmap`.
 
 To specify a custom output filename:
 ```bash
-./tree2mindmap.sh /path/to/project my_custom_map.md
+./tree2markmap.sh /path/to/project my_custom_map.md
 ```
 
 ## License
