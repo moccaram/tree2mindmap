@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# tree2mindmap.sh - Directory-to-Markmap Pipeline
+# tree2markmap.sh - Directory-to-Markmap Pipeline
 # Automates the generation of interactive mindmaps from local folder structures.
 
 DIR="${1:-.}"

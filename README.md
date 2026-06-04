@@ -1,8 +1,8 @@
-# tree2mindmap
+# tree2markmap
 
 A lightweight, zero-dependency directory-to-mindmap pipeline. 
 
-`tree2mindmap` is a local-first alternative to heavy desktop mind-mapping applications. It scans your local folder structures and automatically generates interactive, hierarchical mindmaps using [markmap-cli](https://markmap.js.org/).
+`tree2markmap` is a local-first alternative to heavy desktop mind-mapping applications. It scans your local folder structures and automatically generates interactive, hierarchical mindmaps using [markmap-cli](https://markmap.js.org/).
 
 ## Features
 - **Interactive SVG:** Pan, zoom, and collapse/expand nodes.
@@ -28,14 +28,14 @@ A lightweight, zero-dependency directory-to-mindmap pipeline.
    ```
 3. Ensure the script is executable:
    ```bash
-   chmod +x tree2mindmap.sh
+   chmod +x tree2markmap.sh
    ```
 
 ## Usage
 Simply run the script and pass the target folder path:
 
 ```bash
-./tree2mindmap.sh /path/to/your/project
+./tree2markmap.sh /path/to/your/project
 ```
 
 By default, it generates `<folder_name>_mindmap.md` and `<folder_name>_mindmap.html` in the current directory.
