@@ -16,7 +16,7 @@ python3 - "$ABS_DIR" "$ROOT" << 'PYEOF' > "$OUT_FILE"
 import os
 import sys
 
-def walk(path, depth=0):
+def walk(path, root_path, depth=0):
     try:
         # Get directory contents, skipping hidden files/folders
         items = sorted([f for f in os.listdir(path) if not f.startswith('.')])
@@ -25,11 +25,13 @@ def walk(path, depth=0):
 
     for item in items:
         full_path = os.path.join(path, item)
+        rel_path = os.path.relpath(full_path, root_path)
         indent = '  ' * depth
-        print(f"{indent}- {item}")
+        # Use markdown links to embed the relative path as a stable ID
+        print(f"{indent}- [{item}](#path={rel_path})")
         
         if os.path.isdir(full_path):
-            walk(full_path, depth + 1)
+            walk(full_path, root_path, depth + 1)
 
 if __name__ == "__main__":
     target_dir = sys.argv[1]
@@ -46,12 +48,19 @@ if __name__ == "__main__":
     print('')
     
     print(f"# {root_name}")
-    walk(target_dir)
+    walk(target_dir, target_dir)
 PYEOF
 
 if [ $? -eq 0 ]; then
-    echo "Generated: $OUT_FILE"
-    markmap "$OUT_FILE"
+    echo "Generated Markdown: $OUT_FILE"
+    HTML_OUT="${OUT_FILE%.md}.html"
+    node render.mjs "$OUT_FILE" "$HTML_OUT"
+    if [ $? -eq 0 ]; then
+        echo "Generated HTML: $HTML_OUT"
+    else
+        echo "Error: Failed to generate HTML."
+        exit 1
+    fi
 else
     echo "Error: Failed to generate Markdown."
     exit 1
