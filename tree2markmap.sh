@@ -4,8 +4,17 @@
 # Automates the generation of interactive mindmaps from local folder structures.
 
 DIR="${1:-.}"
+# Prevent accidental expansion if the user passes a literal $ character
 ROOT=$(basename "$(realpath "$DIR")")
 OUT_FILE="${2:-${ROOT}_mindmap.md}"
+
+# Flag to start a local server
+SERVE=false
+for arg in "$@"; do
+    if [ "$arg" == "--serve" ]; then
+        SERVE=true
+    fi
+done
 
 # Ensure we are using an absolute path for DIR for Python
 ABS_DIR=$(realpath "$DIR")
@@ -27,8 +36,9 @@ def walk(path, root_path, depth=0):
         full_path = os.path.join(path, item)
         rel_path = os.path.relpath(full_path, root_path)
         indent = '  ' * depth
-        # Use markdown links to embed the relative path as a stable ID
-        print(f"{indent}- [{item}](#path={rel_path})")
+        # Escape path for Markdown and HTML
+        safe_path = rel_path.replace('"', '&quot;')
+        print(f"{indent}- [{item}](#path={safe_path})")
         
         if os.path.isdir(full_path):
             walk(full_path, root_path, depth + 1)
@@ -57,6 +67,10 @@ if [ $? -eq 0 ]; then
     node render.mjs "$OUT_FILE" "$HTML_OUT"
     if [ $? -eq 0 ]; then
         echo "Generated HTML: $HTML_OUT"
+        if [ "$SERVE" = true ]; then
+            echo "Starting local server at http://localhost:8000/$HTML_OUT"
+            python3 -m http.server 8000
+        fi
     else
         echo "Error: Failed to generate HTML."
         exit 1
