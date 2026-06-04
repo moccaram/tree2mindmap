@@ -3,18 +3,20 @@
 # tree2markmap.sh - Directory-to-Markmap Pipeline
 # Automates the generation of interactive mindmaps from local folder structures.
 
-DIR="${1:-.}"
-# Prevent accidental expansion if the user passes a literal $ character
-ROOT=$(basename "$(realpath "$DIR")")
-OUT_FILE="${2:-${ROOT}_mindmap.md}"
-
-# Flag to start a local server
+# Parse arguments
 SERVE=false
+PARAMS=()
 for arg in "$@"; do
     if [ "$arg" == "--serve" ]; then
         SERVE=true
+    else
+        PARAMS+=("$arg")
     fi
 done
+
+DIR="${PARAMS[0]:-.}"
+ROOT=$(basename "$(realpath "$DIR")")
+OUT_FILE="${PARAMS[1]:-${ROOT}_mindmap.md}"
 
 # Ensure we are using an absolute path for DIR for Python
 ABS_DIR=$(realpath "$DIR")
@@ -68,8 +70,15 @@ if [ $? -eq 0 ]; then
     if [ $? -eq 0 ]; then
         echo "Generated HTML: $HTML_OUT"
         if [ "$SERVE" = true ]; then
-            echo "Starting local server at http://localhost:8000/$HTML_OUT"
+            echo "-------------------------------------------------------"
+            echo "SERVER STARTED"
+            echo "Please open your browser and go to:"
+            echo "http://localhost:8000/$HTML_OUT"
+            echo "-------------------------------------------------------"
+            echo "Press Ctrl+C to stop the server."
             python3 -m http.server 8000
+        else
+            echo "Tip: Use --serve flag to bypass browser 'file://' security blocks."
         fi
     else
         echo "Error: Failed to generate HTML."
