@@ -5,10 +5,13 @@
 
 # Parse arguments
 SERVE=false
+ONLINE=false
 PARAMS=()
 for arg in "$@"; do
     if [ "$arg" == "--serve" ]; then
         SERVE=true
+    elif [ "$arg" == "--online" ]; then
+        ONLINE=true
     else
         PARAMS+=("$arg")
     fi
@@ -66,7 +69,11 @@ PYEOF
 if [ $? -eq 0 ]; then
     echo "Generated Markdown: $OUT_FILE"
     HTML_OUT="${OUT_FILE%.md}.html"
-    node render.mjs "$OUT_FILE" "$HTML_OUT"
+    RENDER_ARGS=("$OUT_FILE" "$HTML_OUT")
+    if [ "$ONLINE" = true ]; then
+        RENDER_ARGS+=("--online")
+    fi
+    node render.mjs "${RENDER_ARGS[@]}"
     if [ $? -eq 0 ]; then
         echo "Generated HTML: $HTML_OUT"
         if [ "$SERVE" = true ]; then
